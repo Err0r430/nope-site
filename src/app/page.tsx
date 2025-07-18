@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Github } from 'lucide-react';
 import GitHubButton from 'react-github-btn';
 
+import gsap from 'gsap';
+
 type NopeApiResponse = {
   success: boolean;
   data: {
@@ -40,7 +42,7 @@ const inter = Inter({
 export default function Page() {
   return(
     <main>
-      <div className="fixed top-4 right-4 z-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 shadow-lg">
+      <div className="fixed top-4 right-4 z-50 px-4 py-2 rounded-md font-medium transition-colors duration-200 shadow-lg github-button">
         <GitHubButton
           href="https://github.com/Err0r430/nope-rs"
           data-color-scheme="no-preference: dark; light: light; dark: dark;"
@@ -64,12 +66,29 @@ export default function Page() {
       </div>
     </main>
 )
+
+useEffect(() => {
+  gsap.fromTo(
+    ".github-button",
+    { opacity: 0, y: -20 },
+    { opacity: 1, y: 0, duration: 0.5, delay: 3, ease: "power2.out" }
+  );
+})
+
 };
 
-function Header(props: {}) {
+function Header() {
+  useEffect(() => {
+    gsap.fromTo(
+      ".title",
+      { filter: "blur(10px)" },
+      { filter: "blur(0px)", duration: 2, ease: "power2.out" }
+    );
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
-        <h1 className={`${geistMono.className} text-5xl font-bold text-red-400`}>Want to decline someone with style?</h1>
+        <h1 className={`${geistMono.className} text-5xl font-bold text-red-400 title`}>Want to decline someone with style?</h1>
         <p className={`${inter.className} mt-10 text-2xl`}>This is The NopeAPI <Badge variant="outline" className='bg-primary align-middle'>v1.0</Badge></p>
         <NopeCard />
       </div>
@@ -110,8 +129,16 @@ function NopeCard() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    gsap.fromTo(
+      ".nope-card",
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.5, delay: 1, ease: "power2.out" }
+    );
+  }, []);
+
   return (
-    <Card className="max-w-5xs flex mx-auto mt-10">
+    <Card className="max-w-5xs flex mx-auto mt-10 nope-card">
       <CardContent>
         {loading && (
           <p className={`${inter.className} text-center`}>Loading...</p>
