@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: 'Nope.rs - For when you need to decline with pazazz',
-    description: data.message,
+    description: data.data.nope ?? "Nope...",
   }
 }
 
