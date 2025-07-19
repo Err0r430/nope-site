@@ -119,3 +119,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.interactive-grid {
+  --mouse-x: -999px;
+  --mouse-y: -999px;
+}
+
+.interactive-grid:hover {
+  transform: perspective(1000px) rotateX(1deg);
+}
