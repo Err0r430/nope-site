@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from "@/components/theme-provider"
 
-export const metadata: Metadata = {
-  title: 'NopeAPI - For when you need to nope with style',
-  description: 'Nope, not your site',
+export async function generateMetadata(): Promise<Metadata> {
+  const res = await fetch('https://api.nope.rs/')
+  const data = await res.json()
+
+  return {
+    title: 'Nope.rs - For when you need to decline with pazazz',
+    description: data.message,
+  }
 }
 
 export default function RootLayout({
